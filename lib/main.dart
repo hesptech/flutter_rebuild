@@ -10,20 +10,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
+    title: 'Orders',
+    theme: ThemeData(
         primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    ),
+    debugShowCheckedModeBanner: false,
+    // remove the debug banner
+    home: const MyHomePage(title: 'Orders'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-
-
   final String title;
 
   @override
@@ -33,11 +32,43 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
+  final List<Order> _orders = [
+    Order(1, 'Coffee', 20.00, 1, DateTime(2020, 1, 1)),
+    Order(2, 'Tea', 10.00, 1, DateTime(2020, 1, 2)),
+    Order(3, 'Cake', 50.00, 1, DateTime(2020, 1, 3)),
+    Order(4, 'Pizza', 100.00, 1, DateTime(2020, 1, 4)),
+  ];
+
   void _incrementCounter() {
     setState(() {
       _counter++;
     });
   }
+
+
+  void incrementQuantity(Order order) {
+    double initialPrice = order.price / order.quantity;
+    // the original price
+    setState(() {
+      // updating the state
+      order.quantity++;
+      order.price = initialPrice * order.quantity;
+    });
+  }
+
+  void decrementQuantity(Order order) {
+    if (order.quantity > 1) {
+      // Check if the quantity is greater than one
+      double initialPrice = order.price / order.quantity;
+      // orginal price
+      setState(() {
+        // updating the state
+        order.quantity--;
+        order.price = initialPrice * order.quantity;
+      });
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -49,13 +80,35 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: _orders.length,
+                itemBuilder: (context, index) {
+                  final order = _orders[index];
+                  return ListTile(
+                    title: Text(order.name),
+                    subtitle: Text('USD ${order.price}'),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        IconButton(
+                          onPressed: () => decrementQuantity(order),
+                          icon: const Icon(Icons.remove)
+                        ),
+                        const SizedBox(width: 15),
+                        Text('${order.quantity}'),
+                        const SizedBox(width: 15),
+                        IconButton(
+                          onPressed: () => incrementQuantity(order),
+                          icon: const Icon(Icons.add)
+                        ),
+                      ],
+                    ),
+                  );
+                  //return OrderCard(order, orderKey);
+                },
+              ),
+            )
           ],
         ),
       ),
@@ -66,4 +119,79 @@ class _MyHomePageState extends State<MyHomePage> {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+}
+
+
+
+
+class OrderCard extends StatefulWidget {
+  final Order order;
+  // Order
+  final Key orderKey;
+  // key
+  const OrderCard(this.order, this.orderKey) : super(key: orderKey);
+
+  @override
+  State<OrderCard> createState() => OrderCardState();
+}
+
+
+class OrderCardState extends State<OrderCard> {
+  late Order order;
+  @override
+  void initState() {
+    super.initState();
+    order = widget.order;
+    // Get the order
+  }
+
+  void incrementQuantity(Order order) {
+    double initialPrice = order.price / order.quantity;
+    setState(() {
+      order.quantity++;
+      order.price = initialPrice * order.quantity;
+    });
+  }
+
+  void decrementQuantity(Order order) {
+    if (order.quantity > 1) {
+      double initialPrice = order.price / order.quantity;
+      setState(() {
+        order.quantity--;
+        order.price = initialPrice * order.quantity;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(order.name),
+      subtitle: Text('USD ${order.price}'),
+      trailing: Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
+        Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
+          IconButton(
+              onPressed: () => decrementQuantity(order),
+              icon: const Icon(Icons.remove)),
+          const SizedBox(width: 15),
+          Text('${order.quantity}'),
+          const SizedBox(width: 15),
+          IconButton(
+              onPressed: () => incrementQuantity(order),
+              icon: const Icon(Icons.add)),
+        ])
+      ]),
+    );
+  }
+}
+
+
+
+class Order {
+  Order(this.id, this.name, this.price, this.quantity, this.date);
+  int id;
+  String name;
+  int quantity;
+  double price;
+  DateTime date;
 }
