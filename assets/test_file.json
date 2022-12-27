@@ -1,0 +1,30 @@
+[
+    {
+      "users": [
+        {
+          "name":"Mufeezwwwqqq1",
+          "age": "25",
+          "degree": "BS-CS"
+        },
+        {
+          "name":"Muzammil1",
+          "age": "27",
+          "degree": "SE"
+        }
+      ]
+    },
+    {
+        "users": [
+          {
+            "name":"pippo2",
+            "age": "25",
+            "degree": "BS-CS"
+          },
+          {
+            "name":"Muzammil2",
+            "age": "27",
+            "degree": "SE"
+          }
+        ]
+      }
+]
