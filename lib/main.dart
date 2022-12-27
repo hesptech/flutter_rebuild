@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rebuild/positioned_tiles.dart';
 
+// https://blog.logrocket.com/how-when-force-flutter-widget-rebuild/#using-keys-force-widget-rebuild
 void main() {
   runApp(const MyApp());
 }
@@ -10,13 +12,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-    title: 'Orders',
-    theme: ThemeData(
-        primarySwatch: Colors.blue,
-    ),
-    debugShowCheckedModeBanner: false,
-    // remove the debug banner
-    home: const MyHomePage(title: 'Orders'),
+      title: 'Orders',
+      theme: ThemeData(
+          primarySwatch: Colors.blue,
+      ),
+      debugShowCheckedModeBanner: false,
+      // remove the debug banner
+      //home: const MyHomePage(title: 'Orders'),
+      home: const PositionedTiles(),
     );
   }
 }
@@ -32,11 +35,19 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
-  final List<Order> _orders = [
+
+  /* final List<Order> _orders = [
     Order(1, 'Coffee', 20.00, 1, DateTime(2020, 1, 1)),
     Order(2, 'Tea', 10.00, 1, DateTime(2020, 1, 2)),
     Order(3, 'Cake', 50.00, 1, DateTime(2020, 1, 3)),
     Order(4, 'Pizza', 100.00, 1, DateTime(2020, 1, 4)),
+  ]; */
+
+  final List<Widget>_orders = [
+    OrderCard(Order(1, 'Coffee', 20.00, 1, DateTime(2020, 1, 1)), UniqueKey()),
+    OrderCard(Order(2, 'Tea', 10.00, 1, DateTime(2020, 1, 2)), UniqueKey()),
+    OrderCard(Order(3, 'Cake', 50.00, 1, DateTime(2020, 1, 3)), UniqueKey()),
+    OrderCard(Order(4, 'Pizza', 100.00, 1, DateTime(2020, 1, 4)), UniqueKey()),
   ];
 
   void _incrementCounter() {
@@ -76,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
+      /* body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -85,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 itemCount: _orders.length,
                 itemBuilder: (context, index) {
                   final order = _orders[index];
-                  return ListTile(
+                  /* return ListTile(
                     title: Text(order.name),
                     subtitle: Text('USD ${order.price}'),
                     trailing: Row(
@@ -104,12 +115,18 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ],
                     ),
-                  );
-                  //return OrderCard(order, orderKey);
+                  ); */
+                  return OrderCard(order, UniqueKey());
                 },
               ),
             )
           ],
+        ),
+      ), */
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: _orders,
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -128,7 +145,7 @@ class OrderCard extends StatefulWidget {
   final Order order;
   // Order
   final Key orderKey;
-  // key
+  // key, Flutter UI uses different keys such as unique key, value key, and object key.
   const OrderCard(this.order, this.orderKey) : super(key: orderKey);
 
   @override
@@ -187,11 +204,12 @@ class OrderCardState extends State<OrderCard> {
 
 
 
-class Order {
-  Order(this.id, this.name, this.price, this.quantity, this.date);
+class Order<Widget> {
+  Order(this.id, this.name, this.price, this.quantity, this.date); //Flutter UI uses different keys such as unique key, value key, and object key
   int id;
   String name;
   int quantity;
   double price;
   DateTime date;
+  //Key key;
 }

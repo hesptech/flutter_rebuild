@@ -15,7 +15,10 @@ class _PositionedTilesState extends State<PositionedTiles> {
   void initState() {
     super.initState();
     tiles = [
-      const StatelessColorfulTile(),
+      //const StatelessColorfulTileOne(),
+      //const StatelessColorfulTileTwo(),
+      StatefulColorfulTileOne(key: UniqueKey(),),
+      StatefulColorfulTileTwo(key: UniqueKey(),),
     ];
   }
 
@@ -23,9 +26,9 @@ class _PositionedTilesState extends State<PositionedTiles> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(child: Row(children: tiles,)),
-      floatingActionButton: const FloatingActionButton(
-        onPressed: null,
-        child: Icon(Icons.sentiment_very_satisfied),
+      floatingActionButton: FloatingActionButton(
+        onPressed: swapTiles,
+        child: const Icon(Icons.sentiment_very_satisfied),
       ),
     );
   }
@@ -38,15 +41,86 @@ class _PositionedTilesState extends State<PositionedTiles> {
 }
 
 
-class StatelessColorfulTile extends StatelessWidget {
-  const StatelessColorfulTile({Key? key}) : super(key: key);
+class StatelessColorfulTileOne extends StatelessWidget {
+  const StatelessColorfulTileOne({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 20,
-      width: 20,
-      color: Colors.amber,
+      height: 100,
+      width: 100,
+      color: Colors.green,
     );
+  }
+}
+
+class StatelessColorfulTileTwo extends StatelessWidget {
+  const StatelessColorfulTileTwo({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 100,
+      width: 100,
+      color: Colors.blueGrey,
+    );
+  }
+}
+
+
+class StatefulColorfulTileOne extends StatefulWidget {
+  const StatefulColorfulTileOne({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulColorfulTileOne> createState() => _StatefulColorfulTileOneState();
+}
+
+class _StatefulColorfulTileOneState extends State<StatefulColorfulTileOne> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 100,
+      width: 100,
+      color: Colors.orange,
+    );    
+  }
+}
+
+class StatefulColorfulTileTwo extends StatefulWidget {
+  const StatefulColorfulTileTwo({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulColorfulTileTwo> createState() => _StatefulColorfulTileTwoState();
+}
+
+class _StatefulColorfulTileTwoState extends State<StatefulColorfulTileTwo> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 100,
+      width: 100,
+      color: Colors.blue,
+    );    
+  }
+}
+
+
+
+class StatefulColorfulTile extends StatefulWidget {
+  const StatefulColorfulTile({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulColorfulTile> createState() => _StatefulColorfulTileState();
+}
+
+class _StatefulColorfulTileState extends State<StatefulColorfulTile> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 100,
+      width: 100,
+      color: Colors.blue,
+    );    
   }
 }
