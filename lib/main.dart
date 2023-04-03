@@ -19,8 +19,14 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       // remove the debug banner
+
+      // state manegement using setState and keys
       //home: const MyHomePage(title: 'Orders'),
+
+      // change position of widgets
       //home: const PositionedTiles(),
+
+      // read data from json
       home: const UsersPresentation(),
     );
   }
@@ -35,7 +41,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  //int _counter = 0;
 
 
   /* final List<Order> _orders = [
@@ -52,11 +58,11 @@ class _MyHomePageState extends State<MyHomePage> {
     OrderCard(Order(4, 'Pizza', 100.00, 1, DateTime(2020, 1, 4)), UniqueKey()),
   ];
 
-  void _incrementCounter() {
+  /* void _incrementCounter() {
     setState(() {
       _counter++;
     });
-  }
+  } */
 
 
   void incrementQuantity(Order order) {
@@ -125,14 +131,14 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ), */
-      /* body: Center(
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: _orders,
         ),
-      ), */
+      ),
 
-      body: Center(
+      /* body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: const [UsersPresentation()],
@@ -143,7 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ), */ // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

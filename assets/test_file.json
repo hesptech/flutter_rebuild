@@ -2,12 +2,12 @@
     {
       "users": [
         {
-          "name":"Mufeezwwwqqq1",
+          "name":"1st group users - 1st user",
           "age": "25",
           "degree": "BS-CS"
         },
         {
-          "name":"Muzammil1",
+          "name":"1st group users - 2st user",
           "age": "27",
           "degree": "SE"
         }
@@ -16,12 +16,12 @@
     {
         "users": [
           {
-            "name":"pippo2",
+            "name":"2sd group users - 1st user",
             "age": "25",
             "degree": "BS-CS"
           },
           {
-            "name":"Muzammil2",
+            "name":"2sd group users - 2sd user",
             "age": "27",
             "degree": "SE"
           }

@@ -40,7 +40,8 @@ class UsersPresentation extends StatelessWidget {
                   itemCount: s.data!.length,
                   itemBuilder: (_, i) => Card(
                     child: ListTile(
-                      title: Text(s.data![i].users[i].name!),
+                      title: Text(s.data![i].users[0].name!),
+                      //subtitle: Text(s.data!.length.toString()),
                     ),
                   ),
                 );
